@@ -1,0 +1,31 @@
+Name: Celine Fong
+ID: 1580124
+CMPUT 275, Winter 2020
+
+Weekly Exercise 1: Display and Joystick
+
+Included Files: 
+	- joy_cursor.cpp
+	- Makefile
+	- README
+
+Accessories:
+	- Arduino MEGA Board
+	- MCU Friend 3.5" TFT LCD shield
+	- Joystick
+
+Wiring Instructions:
+	Arduino Pin A8 <---> Joystick VRy
+	Arduino Pin A9 <---> Joystick VRx
+	Arduino Pin 53 <---> Joystick SW
+	Arduino 5V <---> Joystick 5V
+	Arduino GND <---> Joystick GND
+	Note: Display shield is connected to Arduino with the micro SD card slot on the same side as the Arduino's power plug.
+
+Running Instructions:
+	1. Connect the Arduino to the PC using an A-B USB cable. Check that the Arduino is using the correct serial port (/dev/ttyACM0 or -ACM1)
+	2. In the directory including files joy_cursor.cpp, a Makefile, lcd_image.cpp and lcd_image.h use the command 'make upload' to upload the code onto the Arduino and view on the display shield.
+	3. In order to move the red cursor on the screen, move the joystick in the desired direction. By moving the joystick a small amount on the x or y axis, the cursor will move at a slow speed. Similarily, by moving the joystick a large amount on the x or y axis the cursor will move a fast speed.
+
+Notes and Assumptions:
+	The file joy_cursor.cpp includes several libraries to handle the graphics of this program, specific to the display shield used. The setup() function initializes the display, sets the map patch to be displayed, and sets the red cursor to the center of the display. redrawCursor(colour) draws the cursor in the colour specified, and redrawMap() functions similarily but specifies a portion of the map to be drawn on the display. The redrawMap() function is a new addition which draws over the 'trail' produced by redrawMap(). Finally, processJoystick() reads the joystick input and moves the cursor accordingly. To fix the flickering when the cursor is not moving, redrawMap() is only called within processJoystick() when the joystick has registered a change in position. In order to prevent the cursor from going off the screen, the values of which the cursor position could take were constrained to the dimensions of the screen (not including black bar on the right). Additionally, variable speeds were implemented by creating a threshold value around each potential change in joystick value, over which the distance the cursor would move was increased. It is assumed the lcd_image.cpp and lcd_image.h are provided.
